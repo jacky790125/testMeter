@@ -1,0 +1,14 @@
+[Unit]
+Description=Meter service
+
+[Service]
+ExecStart= {$CMD}
+WorkingDirectory= {$PATH}
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+KillMode=process
+RestartPreventExitStatus=255
+Type=notify
+
+[Install]
+WantedBy=multi-user.target
