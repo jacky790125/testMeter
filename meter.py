@@ -78,7 +78,6 @@ while True:
         f.close()
     except IOError:
         print("Failed to read from instrument")
-    time.sleep(1)
     count += 1
     if count == int(PERIOD):
         info = {
@@ -86,6 +85,7 @@ while True:
         }
         postUrl(info)
         count = 0
+    time.sleep(1)    
 
 
 
