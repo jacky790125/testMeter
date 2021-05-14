@@ -18,11 +18,11 @@ import logging
 import requests
 import json
 
-def postUrl(data):
+def postUrl(info):
     server = os.environ['SERVER']
     url = os.environ['URL']
     route = server+url
-    requests.post(route,data=json.dumps(data))
+    requests.post(route,json=json.dumps(info))
 
 # Meter sensor
 #
