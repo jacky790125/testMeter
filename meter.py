@@ -80,7 +80,7 @@ while True:
         print("Failed to read from instrument")
     time.sleep(1)
     count += 1
-    if count == PERIOD:
+    if count == int(PERIOD):
         info = {
             'voltage': str(temperature)
         }
