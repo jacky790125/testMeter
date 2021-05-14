@@ -6,6 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+minimalmodbus = "*"
+os = "*"
+time = "*"
+requests = "*"
+json = "*"
 
 [requires]
 python_version = "3.8"
