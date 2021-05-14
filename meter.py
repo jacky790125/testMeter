@@ -63,7 +63,8 @@ REGISTER_ADDRESS_TEMP = 3
 REGISTER_NUMBER_DECIMALS = 1
 ModBus_Command = 3
 
-PERIOD = 0
+count = 0
+PERIOD = os.environ['PERIOD']
 
 while True:
     # Register number, number of decimals, function code
@@ -78,13 +79,13 @@ while True:
     except IOError:
         print("Failed to read from instrument")
     time.sleep(1)
-    PERIOD += 1
-    if PERIOD == 60:
+    count += 1
+    if count == PERIOD:
         info = {
-            'voltage': temperature
+            'voltage': str(temperature)
         }
         postUrl(info)
-        PERIOD = 0
+        count = 0
 
 
 
