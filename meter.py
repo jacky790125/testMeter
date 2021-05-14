@@ -12,8 +12,17 @@ Run:
 
 
 import minimalmodbus
+import os
 import time
 import logging
+import requests
+import json
+
+def postUrl(data):
+    server = os.environ['SERVER']
+    url = os.environ['URL']
+    route = server+url
+    requests.post(route,data=json.dumps(data))
 
 # Meter sensor
 #
@@ -54,6 +63,8 @@ REGISTER_ADDRESS_TEMP = 3
 REGISTER_NUMBER_DECIMALS = 1
 ModBus_Command = 3
 
+PERIOD = 0
+
 while True:
     # Register number, number of decimals, function code
     #temperature = instrument.read_register(1, 2, 4)
@@ -67,5 +78,14 @@ while True:
     except IOError:
         print("Failed to read from instrument")
     time.sleep(1)
+    PERIOD += 1
+    if PERIOD == 60:
+        info = {
+            'voltage': temperature
+        }
+        postUrl(info)
+        PERIOD = 0
+
+
 
 
