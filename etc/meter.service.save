@@ -1,0 +1,19 @@
+[Unit]
+Description=Meter service
+
+[Service]
+User=pi
+Group=pi
+PermissionsStartOnly=true
+ExecStartPre=
+/usr/local/bin/pipenv install
+ExecStart=/usr/local/bin/pipenv run python /home/pi/Desktop/testMeter/meter.py
+WorkingDirectory=/usr/bin 
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+KillMode=process
+RestartPreventExitStatus=255
+Type=notify
+
+[Install]
+WantedBy=multi-user.target

@@ -65,13 +65,14 @@ ModBus_Command = 3
 
 count = 0
 PERIOD = os.environ['PERIOD']
+FILE_PATH = os.environ['FILE_PATH']
 
 while True:
     # Register number, number of decimals, function code
     #temperature = instrument.read_register(1, 2, 4)
     temperature = instrument.read_register(REGISTER_ADDRESS_TEMP, REGISTER_NUMBER_DECIMALS, ModBus_Command)
     try:
-        f = open('/home/pi/Desktop/modbus/voltage.txt','a+')
+        f = open(FILE_PATH,'a+')
         result = time.strftime("%Y-%m-%d %H:%M:%S") + " voltage: " + str(temperature) + "\r\n"
         print(result)
         f.write(result)
