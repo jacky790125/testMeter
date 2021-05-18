@@ -2,6 +2,8 @@
 Description=Meter service
 
 [Service]
+User=pi
+Group=pi
 ExecStart= {$CMD}
 WorkingDirectory= {$PATH}
 ExecReload=/bin/kill -HUP $MAINPID
