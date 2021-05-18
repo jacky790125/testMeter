@@ -27,7 +27,7 @@ def postUrl(info):
 # logging
 LOG_LEVEL = os.environ['LOG_LEVEL']
 
-logging.basicConfig(filename='meter.log', level=logging.LOG_LEVEL)
+logging.basicConfig(filename='meter.log', level=LOG_LEVEL)
 
 # Meter sensor
 #
