@@ -64,8 +64,8 @@ print (instrument)
 print ("\n********************\n")
 
 # Read Temperature
-REGISTER_ADDRESS_TEMP = 3
-REGISTER_NUMBER_DECIMALS = 1
+REGISTER_ADDRESS_TEMP = 0
+REGISTER_NUMBER_DECIMALS = 2
 ModBus_Command = 3
 
 count = 0
@@ -73,22 +73,26 @@ PERIOD = os.environ['PERIOD']
 
 while True:
     # Register number, number of decimals, function code
-    #temperature = instrument.read_register(1, 2, 4)
-    temperature = instrument.read_register(REGISTER_ADDRESS_TEMP, REGISTER_NUMBER_DECIMALS, ModBus_Command)
-    try:
-        result = time.strftime("%Y-%m-%d %H:%M:%S") + " voltage: " + str(temperature) + "\r\n"
-        print(result)
-        logging.info(result)
-    except IOError:
-        print("Failed to read from instrument")
-        logging.error("Failed to read from instrument")
-    count += 1
-    if count == int(PERIOD):
-        info = {
-            'voltage': str(temperature)
-        }
-        postUrl(info)
-        count = 0
+    # temperature = instrument.read_register(1, 2, 4)
+    # temperature = instrument.read_register(REGISTER_ADDRESS_TEMP, REGISTER_NUMBER_DECIMALS, ModBus_Command)
+    all = instrument.read_registers(REGISTER_ADDRESS_TEMP, 3, 3)
+    string = time.strftime("%Y-%m-%d %H:%M:%S - ")+ " ".join(map(str, all))
+    print(string)
+    logging.info(string)
+    #try:
+        # result = time.strftime("%Y-%m-%d %H:%M:%S") + " voltage: " + str(temperature) + "\r\n"
+        # print(result)
+    #    logging.info(string)
+    #except IOError:
+    #    print("Failed to read from instrument")
+    #    logging.error("Failed to read from instrument")
+    #count += 1
+    #if count == int(PERIOD):
+    #    info = {
+    #        'voltage': str(temperature)
+    #    }
+        #postUrl(info)
+    #    count = 0
     time.sleep(1)    
 
 
