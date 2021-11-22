@@ -10,7 +10,8 @@ def postUrl(info):
     server = os.environ['SERVER']
     url = os.environ['URL']
     route = server + url
-    requests.post(route, json=json.dumps(info))
+    headers = {'Content-type': 'application/json', 'Accept': 'application/json'}
+    requests.post(route, data=json.dumps(info), headers=headers)
 
 
 # logging
@@ -64,8 +65,8 @@ while True:
         count += 1
         if count == int(PERIOD):
             info = {
-                'voltage': data[0],
-                'current': data[1],
+                'voltage': data[0]/100,
+                'current': data[1]/100,
                 'temperature': data[2]
             }
             postUrl(info)
