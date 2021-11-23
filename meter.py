@@ -47,7 +47,7 @@ print(instrument)
 print("\n********************\n")
 
 # Read Temperature
-REGISTER_ADDRESS_TEMP = 0
+REGISTER_ADDRESS_TEMP = 1
 REGISTER_NUMBER_DECIMALS = 2
 ModBus_Command = 3
 
@@ -57,7 +57,7 @@ PERIOD = os.environ['PERIOD']
 while True:
     # Register number, number of decimals, function code
     try:
-        data = instrument.read_registers(REGISTER_ADDRESS_TEMP, 3, 3)
+        data = instrument.read_registers(REGISTER_ADDRESS_TEMP, 1, 3)
         string = time.strftime("%Y-%m-%d %H:%M:%S - ") + " ".join(map(str, data))
         print(string)
         logging.info(string)
@@ -66,8 +66,6 @@ while True:
         if count == int(PERIOD):
             info = {
                 'voltage': data[0]/100,
-                'current': data[1]/100,
-                'temperature': data[2]
             }
             postUrl(info)
             count = 0
