@@ -131,3 +131,5 @@ dmypy.json
 # setting
 /etc/meter.service
 *.txt
+
+.idea/
